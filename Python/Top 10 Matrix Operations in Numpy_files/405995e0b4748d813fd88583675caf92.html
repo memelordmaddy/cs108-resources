@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/405995e0b4748d813fd88583675caf92 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>matrix_operations_in_numpy_1.py – Medium</title><meta name="description" content="Instantly share code, notes, and snippets. You can&#39;t perform that action at this time. You signed in with another tab or window. You signed out in another tab or window. Reload to refresh your session. Reload to refresh your session."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./3c59c35b053d630f5651002429fdc269.js.download" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-320e547052ac.css"><div id="gist108627896" class="gist">
+    <div class="gist-file" translate="no" data-color-mode="light" data-light-theme="light">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container">
+  <div id="file-matrix_operations_in_numpy_1-py" class="file my-2">
+    
+    <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python  ">
+
+        
+<div class="js-check-bidi js-blob-code-container blob-code-content">
+
+  <template class="js-file-alert-template"></template>
+<template class="js-line-alert-template"></template>
+
+  <table data-hpc="" class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip="" data-tagsearch-lang="Python" data-tagsearch-path="matrix_operations_in_numpy_1.py">
+        <tbody><tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-s1">numpy</span> <span class="pl-k">as</span> <span class="pl-s1">np</span></td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-c"># Vectors as 1D numpy arrays</span></td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">a</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">array</span>([<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>])</td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L5" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="5"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">b</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-en">array</span>([<span class="pl-c1">4</span>, <span class="pl-c1">5</span>, <span class="pl-c1">6</span>])</td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="6"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC6" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="7"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-en">print</span>(<span class="pl-s">"a= "</span>, <span class="pl-s1">a</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="8"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-en">print</span>(<span class="pl-s">"b= "</span>, <span class="pl-s1">b</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="9"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-en">print</span>(<span class="pl-s">"<span class="pl-cce">\n</span>inner:"</span>, <span class="pl-s1">np</span>.<span class="pl-en">inner</span>(<span class="pl-s1">a</span>, <span class="pl-s1">b</span>))</td>
+        </tr>
+        <tr>
+          <td id="file-matrix_operations_in_numpy_1-py-L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="10"></td>
+          <td id="file-matrix_operations_in_numpy_1-py-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-en">print</span>(<span class="pl-s">"dot:"</span>, <span class="pl-s1">np</span>.<span class="pl-en">dot</span>(<span class="pl-s1">a</span>, <span class="pl-s1">b</span>))</td>
+        </tr>
+  </tbody></table>
+</div>
+
+
+    </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/rpromoditha/3c59c35b053d630f5651002429fdc269/raw/7c4868bceadc7e9a042e4ae33414dedff32b4427/matrix_operations_in_numpy_1.py" style="float:right" class="Link--inTextBlock">view raw</a>
+        <a href="https://gist.github.com/rpromoditha/3c59c35b053d630f5651002429fdc269#file-matrix_operations_in_numpy_1-py" class="Link--inTextBlock">
+          matrix_operations_in_numpy_1.py
+        </a>
+        hosted with ❤ by <a class="Link--inTextBlock" href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script><script defer="" src="./v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon="{&quot;rayId&quot;:&quot;872b52e88c2d89f0&quot;,&quot;version&quot;:&quot;2024.3.0&quot;,&quot;token&quot;:&quot;0b5f665943484354a59c39c6833f7078&quot;}" crossorigin="anonymous"></script>
+</body></html>

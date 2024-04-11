@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://acdn.adnxs.com/
+HostUrl=https://ib.adnxs.com/async_usersync?cbfn=queuePixels
