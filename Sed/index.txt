@@ -2,3 +2,5 @@ Index
 
 - Sed Makeup: regex checking, backreference
 - Sed Midsem: Multiple sed commands, Pattern matching, Backreference
+- Sed pq2, 3: complex regex
+- Sed pq5: converting everything to lowercase, converting first letter to upper case, multiple sed 
