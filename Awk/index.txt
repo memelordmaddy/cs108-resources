@@ -2,3 +2,4 @@ Index
 
 -Awk midsem: changing FS, if statement
 -Awk makeup: arithmetic, if statements,[min mark pass question]
+-Awk pq1: field separator, printf, numerical op
