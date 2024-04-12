@@ -1,0 +1,3 @@
+Index
+
+-Latex makeup: generic latex article, title, author, date, table of contents, table, enumerate, itemize
