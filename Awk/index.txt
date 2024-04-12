@@ -1,0 +1,4 @@
+Index
+
+-Awk midsem: changing FS, if statement
+-Awk makeup: arithmetic, if statements,[min mark pass question]
