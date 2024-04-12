@@ -2,3 +2,7 @@ Index
 
 -Bash makeup: sed inside bash for regex matchnig, opening all files in a directory
 -Bash midsem: opening all files in a directory, regex comparison in bash, removing files, arithmetic
+-Bash pq1: command line input iteration
+-Bash pq2: awk in bash, for loop
+-Bash pq4: recursive function, array, nested loop
+-Bash pq5: awk and sed in bash, renaming and removing, regex
