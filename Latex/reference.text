@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\title{Question Creation Assignment}
+\author{Madhav R Babu (23B1060)}
+\date{April 2024}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\section{Introduction}
+Q1, Q2, Q3, and Q4 have been designed keeping in mind the format of Mathathon, Mathathon, Bazinga, and Sci-Comp respectively. Q1 involves a great Combinatorial concept. Q2 involves some combinatorial logic, and some algebraic manipulations, and is relatively simple to Q1. Q3 uses some basic number theory and will test your calculation speed in an event like Bazinga. Q4 involves writing an optimal code, although I'm not sure of the ideal time limit to test the optimality of code. \\
+PS: I have an end sem this Saturday so I wasn't able to spend much time on writing the solutions, hence the solutions given in this document are kinda vague.
+\section{Questions}
+\subsection{Q1: Queen's Gambit}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{e7.png}
+    \caption{Bargov's chess scenario}
+    \label{fig:enter-label}
+\end{figure}
+Elizabeth Harmon a chess prodigy faces the veteran Soviet grandmaster Vasily Borgov, who proposes a challenge:
+In the given chessboard white makes a series of moves followed by black moving once causing a checkmate. This particular scenario has the same set of moves as the solution however the order of moves can vary. Elizabeth's task is to calculate the number of solutions, keeping in mind that while white moves neither black nor white should be in check. With her extraordinary chess skills, she figures out, by moving the white pieces according to the following moves, she can get the desired output. \\
+f2: Pawn moves from f2 to f3.\\
+Bxh1: Bishop captures the piece on h1.\\
+c5: Pawn moves from c7 to c5.\\
+Rg6: Rook moves from g8 to g6.\\
+fg5: Pawn captures the piece on g5.\\
+Bg7: Bishop moves to g7.\\
+d3: Pawn moves from d2 to d3. \\
+Now help her calculate the total number of solutions.
+\subsection{Q2: Walking Through Infinity Corridor}
+It was a boring Monday as usual, Sidhanth was walking through the infinity corridor from LHC when suddenly he realized the corridor had turned into a real number line with him at the origin. He decided to randomly walk around the number line. \\
+\subsubsection{a} Starting from the origin, he takes steps of unit length through the corridor (Real number line). Calculate the probability of him reaching back to the origin, if he takes n steps, for some non-negative integer n. Let this be $P_n$. \\
+\subsubsection{b} He starts walking again from the origin, notes down his initial position(0), and takes steps of size 0 or 1 forward or backward, every second, and notes down his current position. Let $K_n$ be the number of distinct strings he obtains after n seconds without reaching a negative number during his walk. Derive a formula for $K_n$. \\
+ex: For n=3 000, 001, 010, 012, 011 therefore $K_n=5$
+\subsubsection{c} Prove that $\Sigma_{i=0}^{\infty}K_n \times x^n = \frac{1-\sqrt{1-4x}}{2x}$ and hence calculate the sum of $P_n$ for n $\in$ \{ 0,2,4,6, $\dots \infty$ \}.
+\subsection{Q3: Trapped in Digit Sum Loop}
+During his walk Sidhanth encounters a puzzled Sandeep trying to calculate the sum of digits of $5^{10000}$, and sum of digits of the result, and so on till he encounters a single digit number. Help them find the final result.
+\subsection{Q4: To Be Or Not To Be ?}
+Sidhanth escapes the corridor and returns to his room only to find his roommate Adithya looking for prime numbers of the type $2^p-1$ for some prime number $p$. As he embarks on this new journey to search for primes a wild Balaji appears out of thin air and decides to help them. \\
+A sequence \{ $s_i$ \} for all $i \ge 0$ given by 
+\[s_i = \begin{cases}  4 \text{ if } i=0 \\
+s_{i-1}^2 -2 \text{ otherwise}
+\end{cases}\]
+$2^p-1$ is prime if and only if $2^p-1$ divides $s_{p-2}$. Using this create a program that checks whether $2^p-1$ is prime for given p. \\
+Input format t, a positive integer for the number of test cases, followed by t line of prime numbers. Print "YES" if it is prime else print "NO" (without quotes). 
+\begin{center}
+($1 \leq t \leq 10^3$) (number of test cases) \\
+($2 \leq p \leq 10^5$) (prime number p) \\
+Time Limit: 1 second per test case\\
+Memory Limit: 256 MB
+\section{Solutions}
+\subsection{Q1}
+The moves are bounded by constraints which can be expressed in the form of a poset. The poset for this particular scenario will be in zigzag form and hence need to find the permutation of numbers from 1 to 7 (abcdefg) such that $a<b>c$, $c<d>e$, and $e<f>g$, which can be solved with Eulerian numbers.
+\subsection{Q2}
+\subsubsection{a} He needs to take n/2 steps forward and n/2 steps backward. Take all possible ways to do that and subtract the cases where he overshoots. Which will give an answer in terms of Catalan numbers.\\
+\subsubsection{b} Again Catalan numbers. \\
+\subsubsection{c} Also Catalan numbers, \\
+\subsection{Q3}
+Use the Lucas Lehmar primality test for testing Mersenne primes
+\end{center}
+\end{document}
