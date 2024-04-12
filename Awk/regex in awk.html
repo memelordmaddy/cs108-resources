@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://opensource.com/article/19/11/how-regular-expressions-awk -->
+<html lang="en" dir="ltr" prefix="og: https://ogp.me/ns#" class="js" data-whatintent="mouse" data-whatinput="mouse"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">.truste_cursor_pointer {cursor: pointer;}.truste_border_none {border: none;}</style>
+    
+<script id="datalayer-cpx-newsdesk" type="module" data-event="cpx-report" src="./regex in awk_files/newsdesk.js.download"></script>
+<script id="datalayer-page-load-started" type="module" data-event="Page Load Started" src="./regex in awk_files/reporter.js.download" data-emit="cpx-report" reported="">
+    {
+        "subsection2": "11",
+        "pageType": "Article",
+        "pageStatus": "published",
+        "siteLanguage": "en",
+        "contentID": "56821",
+        "subsection3": "how-regular-expressions-awk",
+        "gated": "false",
+        "cms": "OSDC 10.0.0.0",
+        "pageCategory": "article",
+        "destinationURL": "https://opensource.com/article/19/11/how-regular-expressions-awk",
+        "pageName": "OSDC|article|19|11|how-regular-expressions-awk",
+        "siteName": "OSDC",
+        "subsection": "19",
+        "blogAuthor": "Seth Kenlon",
+        "contentType": "Article",
+        "pageTitle": "How to use regular expressions in awk | Opensource.com",
+        "dataObject": "digitalData",
+        "pageSubType": "Article Page",
+        "authoredOn": "2019-11-18T03:00:00-0500",
+        "coAuthorDisplayNames": [],
+        "commentCount": "2",
+        "taxonomyTags": [],
+        "creditsDisplayNames": [
+            "Robert Young",
+            "Dave Morriss"
+        ],
+        "userAttributes": [
+            "Team"
+        ]
+    }
+</script>
+<meta name="description" content="In awk, regular expressions (regex) allow for dynamic and complex pattern definitions.">
+<link rel="canonical" href="https://opensource.com/article/19/11/how-regular-expressions-awk">
+<meta name="author" content="Seth Kenlon">
+<link rel="image_src" href="./regex in awk_files/code_computer_laptop_hack_work.png">
+<meta property="og:site_name" content="Opensource.com">
+<meta property="og:url" content="https://opensource.com/article/19/11/how-regular-expressions-awk">
+<meta property="og:title" content="How to use regular expressions in awk">
+<meta property="og:description" content="In awk, regular expressions (regex) allow for dynamic and complex pattern definitions.">
+<meta property="og:image" content="https://opensource.com/sites/default/files/lead-images/code_computer_laptop_hack_work.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="In awk, regular expressions (regex) allow for dynamic and complex pattern definitions.">
+<meta name="twitter:site" content="@opensourceway">
+<meta name="twitter:title" content="How to use regular expressions in awk">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:url" content="https://opensource.com/article/19/11/how-regular-expressions-awk">
+<meta name="twitter:image" content="https://opensource.com/sites/default/files/lead-images/code_computer_laptop_hack_work.png">
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)">
+<meta name="MobileOptimized" content="width">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="https://opensource.com/themes/osdc/assets/img/favicons/favicon.ico" type="image/vnd.microsoft.icon">
+
+    <title>How to use regular expressions in awk | Opensource.com</title>
+    <link rel="stylesheet" media="all" href="./regex in awk_files/css_6WBsRwXmscpfRIqOYpDjPRxiutJUbjOlVy_rwtJxBpY.css">
+<link rel="stylesheet" media="all" href="./regex in awk_files/font-awesome.min.css">
+<link rel="stylesheet" media="all" href="./regex in awk_files/css_ZPzWrwWHIbxIuu2K1v9KkpKFs8mJjceZUU366qELaiE.css">
+<link rel="stylesheet" media="all" href="./regex in awk_files/css_mdhev0m83tq7khXydU_fG-oWSKhDFNVfVimiolllo_8.css">
+<link rel="stylesheet" media="all" href="./regex in awk_files/css2">
+<link rel="stylesheet" media="all" href="./regex in awk_files/css2(1)">
+<link rel="stylesheet" media="all" href="./regex in awk_files/css_RQrydYGpsf-GTXOe4OKRPbtVI0nCio1pys8dfnz9RcU.css">
+
+    <script src="./regex in awk_files/cpx-reporter.js.download" type="module"></script>
+
+    <script type="module" src="./regex in awk_files/pfe-modal.min.js.download"></script>
+  <script type="text/javascript" src="./regex in awk_files/notice" id="truste_0.5988659944985497"></script><script src="./regex in awk_files/AppMeasurement.min.js.download" async=""></script><script src="./regex in awk_files/AppMeasurement_Module_ActivityMap.min.js.download" async=""></script><script src="./regex in awk_files/rh.mktg.js.download"></script><script src="./regex in awk_files/RCadbc8ee2a6f6486ab3c0e68892826409-source.min.js.download" async=""></script><script src="./regex in awk_files/RC64c4139883b6449e9007dae118d46129-source.min.js.download" async=""></script><script async="" src="./regex in awk_files/hotjar-1925293.js.download"></script><script src="./regex in awk_files/RC882d4a0a7bfe4e5883131437940d61ea-source.min.js.download" async=""></script><script src="./regex in awk_files/RCb3347083d3c74782ad8b87082d840d03-source.min.js.download" async=""></script><script src="./regex in awk_files/RCaeae9fdd3ba243ddb2ee3b09b79202c7-source.min.js.download" async=""></script><script async="" src="./regex in awk_files/modules.429236d560f51d186b8b.js.download" charset="utf-8"></script><script type="text/javascript" src="./regex in awk_files/elqCfg.min.js.download"></script><script src="./regex in awk_files/RC0548ca5c51b34db08240b0dce9707f2f-source.min.js.download" async=""></script><script src="./regex in awk_files/RC998e066cced84f7bab0826f50900712c-source.min.js.download" async=""></script><script type="text/javascript" src="./regex in awk_files/svrGP"></script></head>
+  <body class="path-node page-node-type-article">
+        <a href="https://opensource.com/article/19/11/how-regular-expressions-awk#main-content" class="focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas="">
+    <div class="layout-container">
+
+  <header>
+      <div class="region region-messages">
+    <div data-drupal-messages-fallback="" class="hidden"></div>
+
+  </div>
+
+    
+<div class="region-top-bar">
+  <div class="region wrapper region-user-menu">
+    <div class="hamburger__container">
+        <div class="hamburger">
+            <button id="mobnav-btn" aria-label="Toggle main menu" class="button--plain toggle-menu"></button>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <a href="https://www.redhat.com/en?intcmp=701600000011l7VAAQ" target="_blank" class="flex-center support-logo">
+        <img alt="Supported by Red Hat" src="./regex in awk_files/l_supported-by-redhat-white.svg" title="Supported by Red Hat" width="125" height="56" class="support-logo__image">
+    </a>
+
+    
+    <nav role="navigation" aria-labelledby="block-useraccountmenu-menu" id="block-useraccountmenu" class="block block-menu navigation menu--account">
+            
+  <h2 class="visually-hidden" id="block-useraccountmenu-menu">User account menu</h2>
+  
+
+        
+    
+                    <ul class="account">
+    
+                            <li class="log-in account__item">
+        <a href="https://opensource.com/user/login?current=/article/19/11/how-regular-expressions-awk" class="account__link" data-drupal-link-system-path="user/login">Log in</a>
+                </li>
+                            <li class="rss account__item">
+        <a href="https://opensource.com/feed" title="RSS" class="account__link" data-drupal-link-system-path="rss.xml">RSS</a>
+                </li>
+            </ul>
+    
+
+
+  </nav>
+
+  </div>
+</div>
+
+      <div class="region region-header">
+    <div id="block-osdc-branding" class="block block-system block-system-branding-block">
+  
+    
+    <div class="branding">
+          <a href="https://opensource.com/" rel="home" aria-label="Opensource.com" class="branding__logo">
+        <img src="./regex in awk_files/logo.svg" alt="Home">
+      </a>
+        <a href="https://www.redhat.com/en?intcmp=701600000011l7VAAQ" target="_blank" class="branding__supported-by">
+      <img src="./regex in awk_files/l_supported-by-redhat-white.svg" width="125" height="56" class="branding__supported-by__image" alt="Supported by Red Hat">
+    </a>
+  </div>
+  <div class="branding__slogan"></div>
+</div>
+
+  </div>
+
+  </header>
+
+    <div class="region region-main-nav">
+    <nav role="navigation" aria-labelledby="block-mainnavigation-menu" id="block-mainnavigation" class="block block-menu navigation menu--main">
+            
+  <h2 class="visually-hidden" id="block-mainnavigation-menu">Main navigation</h2>
+  
+
+        
+    
+                    <ul class="main" id="main-menu">
+    
+                            <li class="main__item">
+        <a href="https://opensource.com/" class="main__link" data-drupal-link-system-path="&lt;front&gt;">Articles</a>
+                </li>
+                            <li class="main__item is-expanded"><span class="nav-arrow" tabindex="0"></span>
+        <a href="https://opensource.com/resources" class="main__link" data-drupal-link-system-path="node/17752">Resources</a>
+                        
+                    <ul class="main__submenu">
+    
+                            <li class="main__item is-expanded">
+        <a href="https://opensource.com/resources/what-open-source" class="main__link" data-drupal-link-system-path="node/17753">What is open source?</a>
+                        
+                    <ul class="main__submenu">
+    
+                            <li class="main__item">
+        <a href="https://opensource.com/open-source-way" class="main__link" data-drupal-link-system-path="node/17730">The open source way</a>
+                </li>
+            </ul>
+    
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/resources/projects-and-applications" class="main__link" data-drupal-link-system-path="node/17760">Projects and applications</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/resources/organizations" class="main__link" data-drupal-link-system-path="node/17763">Organizations</a>
+                </li>
+                            <li class="main__item is-expanded">
+        <a href="https://opensource.com/alternatives" class="main__link" data-drupal-link-system-path="node/30871">Open source alternatives</a>
+                        
+                    <ul class="main__submenu">
+    
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/adobe-acrobat" class="main__link" data-drupal-link-system-path="node/29486">Alternatives to Acrobat</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/autocad" class="main__link" data-drupal-link-system-path="node/29001">Alternatives to AutoCAD</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/dreamweaver" class="main__link" data-drupal-link-system-path="node/27646">Alternatives to Dreamweaver</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/gmail" class="main__link" data-drupal-link-system-path="node/22941">Alternatives to Gmail</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/matlab" class="main__link" data-drupal-link-system-path="node/29276">Alternatives to MATLAB</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/minecraft" class="main__link" data-drupal-link-system-path="node/22786">Alternatives to Minecraft</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/google-photos" class="main__link" data-drupal-link-system-path="node/27211">Alternatives to Google Photos</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/life/12/6/design-without-debt-five-tools-for-designers" class="main__link" data-drupal-link-system-path="node/16365">Alternatives to Photoshop</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/skype" class="main__link" data-drupal-link-system-path="node/45576">Alternatives to Skype</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/slack" class="main__link" data-drupal-link-system-path="node/23286">Alternatives to Slack</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives/trello" class="main__link" data-drupal-link-system-path="node/22546">Alternatives to Trello</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/alternatives" class="main__link" data-drupal-link-system-path="node/30871">More...</a>
+                </li>
+            </ul>
+    
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/resources/linux" class="main__link" data-drupal-link-system-path="node/19796">Linux</a>
+                </li>
+            </ul>
+    
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/downloads" class="main__link" data-drupal-link-system-path="downloads">Downloads</a>
+                </li>
+                            <li class="main__item">
+        <a href="https://opensource.com/faq" class="main__link" data-drupal-link-system-path="node/62466">Frequently Asked Questions</a>
+                </li>
+            <li id="search-container" class="search-container"><button id="toggle-search" aria-label="Toggle Search" class="button--plain toggle-search">
+        <i class="icon-search"></i>
+    </button><div class="views-exposed-form block block-views block-views-exposed-filter-blockacquia-search-page" data-drupal-selector="views-exposed-form-acquia-search-page" id="block-exposedformacquia-searchpage">
+  
+    
+      <form action="https://opensource.com/site-search" method="get" id="views-exposed-form-acquia-search-page" accept-charset="UTF-8">
+  <div class="form--inline clearfix">
+  <div class="js-form-item form-item js-form-type-textfield form-type-textfield js-form-item-search form-item-search">
+      <label for="edit-search">Search</label>
+        <input placeholder="Search" data-drupal-selector="edit-search" type="text" id="edit-search" name="search" value="" size="30" maxlength="128" class="form-text">
+
+        </div>
+<div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions--4"><input data-drupal-selector="edit-submit-acquia-search" type="submit" id="edit-submit-acquia-search" value="Search" class="button js-form-submit form-submit">
+</div>
+
+</div>
+
+</form>
+
+  </div></li></ul>
+    
+
+
+  </nav>
+
+
+
+  </div>
+
+
+  <main>
+    <a id="main-content" tabindex="-1"></a>
+    <div class="wrapper wrapper--870">
+        <div class="region region-content">
+    <div id="block-osdc-page-title" class="block block-core block-page-title-block">
+  
+    
+      
+  <h1 class="published page-title">
+    <span class="field field--name-title field--type-string field--label-hidden">How to use regular expressions in awk</span>
+
+      </h1>
+
+
+  </div>
+<div id="block-mainpagecontent" class="block block-system block-system-main-block">
+  
+    
+      
+<article class="node node--type-article node--promoted node--view-mode-full">
+
+  
+  <div class="article__subhead">Use regex to search code using dynamic and complex pattern definitions.</div>
+
+      <footer class="author__meta">
+      <div class="author__submitted">
+        <div class="author__list">
+          By 
+<article class="profile">
+            <a href="https://opensource.com/users/seth" hreflang="en">Seth Kenlon</a>
+      <span class="user-attributes">(Team, Red Hat)</span>
+
+</article>
+ 
+        </div>
+        <div class="author__meta-date-container">
+                    <span class="author__meta-date">November 18, 2019</span>          <span class="author__date-pipe">|</span>
+          <a href="https://opensource.com/article/19/11/how-regular-expressions-awk#comments"><span class="author__comment-count">2 Comments </span></a>
+          <span class="author__date-pipe">|</span>
+          <pfe-readtime class="pf-global--FontSize--lg PFElement" for="#article_content" word-count="1334" wpm="228" template="%t min read" lang="en" pfelement="" type="content"><template shadowrootmode="open">
+<style>:host{font-size:1rem;font-size:var(--pfe-readtime--FontSize,var(--pf-global--FontSize--md,1rem))}:host([hidden]){display:none} /*# sourceMappingURL=pfe-readtime.min.css.map */</style>
+<span class="pfe-readtime__text">5 min read</span></template>%t min read</pfe-readtime>
+
+        </div>
+      </div>
+    </footer>
+    <div id="article_content" class="author__content">
+
+      <div class="layout layout--onecol">
+    <div class="layout__region layout__region--content">
+      <div class="block block-layout-builder block-extra-field-blocknodearticlerate-rate-widget">
+  
+    
+      <div class="rate-widget thumbsup"><form class="node-article-56821-updown-rate-widget-0 vote-form" id="rate-widget-base-form" data-drupal-selector="node-article-56821-updown-rate-widget-0" action="https://opensource.com/article/19/11/how-regular-expressions-awk" method="post" accept-charset="UTF-8">
+    <div class="rate-widget-thumbs-up">
+    <div class="thumbsup-rating-wrapper rate-disabled" can-edit="false"><div class="form-item js-form-item form-type-radio js-form-type-radio form-item-value js-form-item-value form-disabled">
+  <label class="form-item js-form-item form-type-radio js-form-type-radio form-item-value js-form-item-value form-disabled rating-label thumbsup-rating-label thumbsup-rating-label-up vote-pending rate-thumbs-up-btn-up" style="cursor: default;"><input twig-suggestion="rating-input" class="rating-input thumbsup-rating-input form-radio" data-drupal-selector="edit-value-1" disabled="disabled" type="radio" id="edit-value-1" name="value" value="1">
+</label>
+    </div>
+</div><input autocomplete="off" data-drupal-selector="form-0xm0diqhb6fnohnoncr8l1bklvepjlloatxz-oxde58" type="hidden" name="form_build_id" value="form-0xM0DiqHB6fNOhNoncR8L1BkLVEPjlLoatxZ-OxDE58">
+<input data-drupal-selector="edit-node-article-56821-updown-rate-widget-0" type="hidden" name="form_id" value="node_article_56821_updown_rate_widget_0">
+<input class="thumbsup-rating-submit button button--primary js-form-submit form-submit" data-drupal-selector="edit-submit" type="submit" id="edit-submit--2" name="op" value="Save" data-once="drupal-ajax">
+<div class="vote-result js-form-wrapper form-wrapper" data-drupal-selector="edit-result" id="edit-result"><div class="rate-widget-thumbs-up rate-score">
+            116 readers like this.    </div>
+</div>
+
+    <div class="rate-score"></div>
+  </div>
+
+
+</form>
+</div>
+
+  </div>
+<div class="block block-layout-builder block-extra-field-blocknodearticlecontent-moderation-control">
+  
+    
+      
+  </div>
+
+    </div>
+  </div>
+  <div class="layout layout--onecol">
+    <div class="layout__region layout__region--content">
+      <div class="block block-layout-builder block-field-blocknodearticlefield-lead-image">
+  
+    
+      
+            <div class="field field--name-field-lead-image field--type-entity-reference field--label-hidden field__item"><article class="media media--type-image media--view-mode-caption">
+  
+      
+            <div class="field field--name-field-media-image field--type-image field--label-hidden field__item">  <img loading="lazy" src="./regex in awk_files/code_computer_laptop_hack_work.png" width="1041" height="584" alt="Coding on a computer" title="Coding on a computer">
+
+</div>
+      
+  </article>
+</div>
+      
+  </div>
+<div class="block block-layout-builder block-field-blocknodearticlebody">
+  
+    
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>In awk, regular expressions (regex) allow for dynamic and complex pattern definitions. You're not limited to searching for simple strings but also patterns within patterns.</p>
+<p>The syntax for using regular expressions to match lines in awk is:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">word ~ /match/</code></pre><p>The inverse of that is <em>not</em> matching a pattern:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">word !~ /match/</code></pre><p>If you haven't already, create the sample file from our <a href="https://opensource.com/article/19/10/intro-awk">previous article</a>:</p>
+<pre><code class="language-text" style="overflow-x: auto;">name       color  amount
+apple      red    4
+banana     yellow 6
+strawberry red    3
+raspberry  red    99
+grape      purple 10
+apple      green  8
+plum       purple 2
+kiwi       brown  4
+potato     brown  9
+pineapple  yellow 5</code></pre><p>Save the file as <strong>colours.txt</strong> and run:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ awk -e <span class="hljs-string">'$1 ~ /p[el]/ {print $0}'</span> colours.txt
+apple      red    4
+grape      purple 10
+apple      green  8
+plum       purple 2
+pineapple  yellow 5</code></pre><p>You have selected all records containing the letter <strong>p</strong> followed by <em>either</em> an <strong>e</strong> or an <b>l</b>.</p>
+<p>Adding an <strong>o</strong> inside the square brackets creates a new pattern to match:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ awk -e <span class="hljs-string">'$1 ~ /p[o]/ {print $0}'</span> colours.txt
+apple      red    4
+grape      purple 10
+apple      green  8
+plum       purple 2
+pineapple  yellow 5
+potato     brown  9</code></pre><h2 id="regular-expression-basics">Regular expression basics</h2>
+<p>Certain characters have special meanings when they're used in regular expressions.</p>
+<h3>Anchors</h3>
+<table border="1"><thead><tr><th>Anchor</th>
+<th>Function</th>
+</tr></thead><tbody><tr><td><strong>^</strong></td>
+<td>Indicates the beginning of the line</td>
+</tr><tr><td><strong>$</strong></td>
+<td>Indicates the end of a line</td>
+</tr><tr><td><strong>\A</strong></td>
+<td>Denotes the beginning of a string</td>
+</tr><tr><td><strong>\z</strong></td>
+<td>Denotes the end of a string</td>
+</tr><tr><td><strong>\b</strong></td>
+<td>Marks a word boundary</td>
+</tr></tbody></table><p>For example, this awk command prints any record containing an <strong>r</strong> character:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ awk -e <span class="hljs-string">'$1 ~ /r/ {print $0}'</span> colours.txt
+strawberry red    3
+raspberry  red    99
+grape      purple 10</code></pre><p>Add a <strong>^</strong> symbol to select only records where <strong>r</strong> occurs at the beginning of the line:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ awk -e <span class="hljs-string">'$1 ~ /^r/ {print $0}'</span> colours.txt
+raspberry  red    99</code></pre><h3 id="characters">Characters</h3>
+<table border="1"><thead><tr><th>Character</th>
+<th>Function</th>
+</tr></thead><tbody><tr><td><strong>[ad]</strong></td>
+<td>Selects <strong>a</strong> or <strong>d</strong></td>
+</tr><tr><td><strong>[a-d]</strong></td>
+<td>Selects any character <strong>a</strong> through <strong>d</strong> (a, b, c, or d)</td>
+</tr><tr><td><strong>[^a-d]</strong></td>
+<td>Selects any character <em>except</em> <strong>a</strong> through <strong>d</strong> (e, f, g, h…)</td>
+</tr><tr><td><strong>\w</strong></td>
+<td>Selects any word</td>
+</tr><tr><td><strong>\s</strong></td>
+<td>Selects any whitespace character</td>
+</tr><tr><td><strong>\d</strong></td>
+<td>Selects any digit</td>
+</tr></tbody></table><p>The capital versions of w, s, and d are negations; for example, <strong>\D</strong> <em>does not</em> select any digit.</p>
+<p><a href="https://opensource.com/article/19/7/what-posix-richard-stallman-explains">POSIX</a> regex offers easy mnemonics for character classes:</p>
+<table border="1"><thead><tr><th>POSIX mnemonic</th>
+<th>Function</th>
+</tr></thead><tbody><tr><td><strong>[:alnum:]</strong></td>
+<td>Alphanumeric characters</td>
+</tr><tr><td><strong>[:alpha:]</strong></td>
+<td>Alphabetic characters</td>
+</tr><tr><td><strong>[:space:]</strong></td>
+<td>Space characters (such as space, tab, and formfeed)</td>
+</tr><tr><td><strong>[:blank:]</strong></td>
+<td>Space and tab characters</td>
+</tr><tr><td><strong>[:upper:]</strong></td>
+<td>Uppercase alphabetic characters</td>
+</tr><tr><td><strong>[:lower:]</strong></td>
+<td>Lowercase alphabetic characters</td>
+</tr><tr><td><strong>[:digit:]</strong></td>
+<td>Numeric characters</td>
+</tr><tr><td><strong>[:xdigit:]</strong></td>
+<td>Characters that are hexadecimal digits</td>
+</tr><tr><td><strong>[:punct:]</strong></td>
+<td>Punctuation characters (i.e., characters that are not letters, digits, control characters, or space characters)</td>
+</tr><tr><td><strong>[:cntrl:]</strong></td>
+<td>Control characters <span style="color:#e74c3c;"></span></td>
+</tr><tr><td><strong>[:graph:]</strong></td>
+<td>Characters that are both printable and visible (e.g., a space is printable but not visible, whereas an <strong>a</strong> is both)</td>
+</tr><tr><td><strong>[:print:]</strong></td>
+<td>Printable characters (i.e., characters that are not control characters)</td>
+</tr></tbody></table><h2 id="quantifiers">Quantifiers</h2>
+<table border="1"><thead><tr><th>Quantifier</th>
+<th>Function</th>
+</tr></thead><tbody><tr><td><strong>.</strong></td>
+<td>Matches any character</td>
+</tr><tr><td><strong>+</strong></td>
+<td>Modifies the preceding set to mean <em>one or more times</em></td>
+</tr><tr><td><strong>*</strong></td>
+<td>Modifies the preceding set to mean <em>zero or more times</em></td>
+</tr><tr><td><strong>?</strong></td>
+<td>Modifies the preceding set to mean <em>zero or one time</em></td>
+</tr><tr><td><strong>{n}</strong></td>
+<td>Modifies the preceding set to mean <em>exactly n times</em></td>
+</tr><tr><td><strong>{n,}</strong></td>
+<td>Modifies the preceding set to mean <em>n or more times</em></td>
+</tr><tr><td><strong>{n,m}</strong></td>
+<td>Modifies the preceding set to mean <em>between n and m times</em></td>
+</tr></tbody></table><p>Many quantifiers modify the character sets that precede them. For example, <strong>.</strong> means any character that appears exactly once, but <strong>.*</strong> means <em>any or no</em> character. Here's an example; look at the regex pattern carefully:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ <span class="hljs-built_in">printf</span> <span class="hljs-string">"red\nrd\n"</span>
+red
+rd
+$ <span class="hljs-built_in">printf</span> <span class="hljs-string">"red\nrd\n"</span> | awk -e <span class="hljs-string">'$0 ~ /^r.d/ {print}'</span>
+red
+$ <span class="hljs-built_in">printf</span> <span class="hljs-string">"red\nrd\n"</span> | awk -e <span class="hljs-string">'$0 ~ /^r.*d/ {print}'</span>
+red
+rd</code></pre><p>Similarly, numbers in braces specify the number of times something occurs. To find records in which an <strong>e</strong> character occurs exactly twice:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ awk -e <span class="hljs-string">'$2 ~ /e{2}/ {print $0}'</span> colours.txt
+apple      green  8</code></pre><h2 id="grouped-matches">Grouped matches</h2>
+<table border="1"><thead><tr><th>Quantifier</th>
+<th>Function</th>
+</tr></thead><tbody><tr><td><strong>(red)</strong></td>
+<td>Parentheses indicate that the enclosed letters must appear contiguously</td>
+</tr><tr><td><strong>|</strong></td>
+<td>Means <em>or</em> in the context of a grouped match</td>
+</tr></tbody></table><p>For instance, the pattern <strong>(red)</strong> matches the word <strong>red</strong> and <strong>ordered</strong> but not any word that contains all three of those letters in another order (such as the word <strong>order</strong>).</p>
+<h2 id="awk-like-sed-with-sub-and-gsub">Awk like sed with sub() and gsub()</h2>
+<p>Awk features several functions that perform find-and-replace actions, much like the Unix command <strong>sed</strong>. These are functions, just like <strong>print</strong> and <strong>printf</strong>, and can be used in awk rules to replace strings with a new string, whether the new string is a string or a variable.</p>
+<p>The <strong>sub</strong> function substitutes the <em>first</em> matched entity (in a record) with a replacement string. For example, if you have this rule in an awk script:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">{ sub(/apple/, <span class="hljs-string">"nut"</span>, <span class="hljs-variable">$1</span>);
+    <span class="hljs-built_in">print</span> <span class="hljs-variable">$1</span> }</code></pre><p>running it on the example file <strong>colours.txt</strong> produces this output:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">name
+nut
+banana
+raspberry
+strawberry
+grape
+nut
+plum
+kiwi
+potato
+pinenut</code></pre><p>The reason both <strong>apple</strong> and <strong>pineapple</strong> were replaced with <strong>nut</strong> is that both are the first match of their records. If the records were different, then the results could differ:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ <span class="hljs-built_in">printf</span> <span class="hljs-string">"apple apple\npineapple apple\n"</span> | \
+awk -e <span class="hljs-string">'sub(/apple/, "nut")'</span>
+nut apple
+pinenut apple</code></pre><p>The <strong>gsub</strong> command substitutes <em>all</em> matching items:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ <span class="hljs-built_in">printf</span> <span class="hljs-string">"apple apple\npineapple apple\n"</span> | \
+awk -e <span class="hljs-string">'gsub(/apple/, "nut")'</span>
+nut nut
+pinenut nut</code></pre><h3 id="gensub">Gensub</h3>
+<p>An even more complex version of these functions, called <strong>gensub()</strong>, is also available.</p>
+<p>The <strong>gensub</strong> function allows you to use the <strong>&amp;</strong> character to recall the matched text. For example, if you have a file with the word <strong>Awk</strong> and you want to change it to <strong>GNU Awk</strong>, you could use this rule:</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">{ <span class="hljs-built_in">print</span> gensub(/(Awk)/, <span class="hljs-string">"GNU &amp;"</span>, 1) }</code></pre><p>This searches for the group of characters <strong>Awk</strong> and stores it in memory, represented by the special character <strong>&amp;</strong>. Then it substitutes the string for <strong>GNU &amp;</strong>, meaning <strong>GNU Awk</strong>. The <strong>1</strong> character at the end tells <strong>gensub()</strong> to replace the first occurrence.</p>
+<pre><code class="language-bash hljs" style="overflow-x: auto;">$ <span class="hljs-built_in">printf</span> <span class="hljs-string">"Awk\nAwk is not Awkward"</span> \
+| awk -e <span class="hljs-string">' { print gensub(/(Awk)/, "GNU &amp;",1) }'</span>
+GNU Awk
+GNU Awk is not Awkward</code></pre><h2 id="theres-a-time-and-a-place">There's a time and a place</h2>
+<p>Awk is a powerful tool, and regex are complex. You might think awk is so very powerful that it could easily replace <strong>grep</strong> and <strong>sed</strong> and <strong>tr</strong> and <a href="https://opensource.com/article/19/10/get-sorted-sort"><strong>sort</strong></a>&nbsp;and many more, and in a sense, you'd be right. However, awk is just one tool in a toolbox that's overflowing with great options. You have a choice about what you use and when you use it, so don't feel that you have to use one tool for every job great and small.</p>
+<p>With that said, awk really <em>is</em> a powerful tool with lots of great functions. The more you use it, the better you get to know it. Remember its capabilities, and fall back on it occasionally so can you get comfortable with it.</p>
+<p>Our next article will cover looping in Awk, so come back soon!</p>
+<hr><p><em>This article is adapted from an episode of <a href="http://hackerpublicradio.org/eps.php?id=2129" target="_blank">Hacker Public Radio</a>, a community technology podcast.</em></p>
+</div>
+      
+  </div>
+<div class="block block-layout-builder block-field-blocknodearticlefield-listicle-title">
+  
+    
+      
+            <div class="field field--name-field-listicle-title field--type-string field--label-hidden field__item">What to read next</div>
+      
+  </div>
+<div class="block block-layout-builder block-field-blocknodearticlefield-listicles">
+  
+    
+      
+      <div class="field field--name-field-listicles field--type-entity-reference field--label-hidden field__items">
+              <div class="field__item"><article class="teaser">
+  <figure>
+            <div class="field field--name-field-lead-image field--type-entity-reference field--label-hidden field__item">       <a href="https://opensource.com/article/18/7/cheat-sheet-awk" hreflang="und"><img loading="lazy" src="./regex in awk_files/brain_data.png" width="360" height="202" alt="Getting started with SQL" title="Getting started with SQL" class="image-style-article-teaser">
+
+</a>
+   </div>
+      </figure>
+  <div class="teaser__content">
+    
+          <h2>
+        <a href="https://opensource.com/article/18/7/cheat-sheet-awk" rel="bookmark"><span class="field field--name-title field--type-string field--label-hidden">Extracting and displaying data with awk</span>
+</a>
+      </h2>
+        
+          
+            <div class="clearfix text-formatted field field--name-field-article-subhead field--type-text-long field--label-hidden field__item">  <p>Get our awk cheat sheet.</p>
+
+
+</div>
+      
+              <footer>
+                <div class="teaser__author">
+          
+<div class="user__item">
+  <pfe-avatar name="Jim Hall" shape="circle" pattern="squares" src="/sites/default/files/pictures/jimhall1.jpg" pfelement="" class="PFElement"><template shadowrootmode="open">
+<style>:host{display:block;position:relative;width:128px;width:var(--pfe-avatar--size,var(--pfe-avatar--width,128px));height:128px;height:var(--pfe-avatar--size,var(--pfe-avatar--width,128px))}:host canvas{width:100%;height:100%;image-rendering:optimizeSpeed;image-rendering:-moz-crisp-edges;image-rendering:-webkit-optimize-contrast;image-rendering:-o-crisp-edges;image-rendering:-o-pixelated;image-rendering:pixelated;-ms-interpolation-mode:nearest-neighbor}:host([shape=rounded]) canvas,:host([shape=rounded]) img{border-radius:calc(128px / 8 + 1px);border-radius:calc(var(--pfe-avatar--size,var(--pfe-avatar--width,128px))/ 8 + 1px)}:host([shape=circle]) canvas,:host([shape=circle]) img{border-radius:50%}:host([src]) canvas{display:none}:host([src]) img{display:block;width:100%;height:100%;-o-object-fit:cover;object-fit:cover}:host(:not([src])) img{display:none}:host([hidden]){display:none} /*# sourceMappingURL=pfe-avatar.min.css.map */</style>
+<canvas width="128" height="128"></canvas>
+<img src="https://opensource.com/sites/default/files/pictures/jimhall1.jpg"></template></pfe-avatar>
+  <div class="user__name">
+            <a href="https://opensource.com/users/jim-hall" hreflang="en">Jim Hall</a>
+      </div>
+  <span class="user__attributes"><span class="user-attributes">(Correspondent)</span>
+</span>
+</div>
+
+        </div>
+                <span class="teaser__date">July 30, 2018</span>
+      </footer>
+      </div>
+</article>
+
+
+
+
+</div>
+              <div class="field__item"><article class="teaser">
+  <figure>
+            <div class="field field--name-field-lead-image field--type-entity-reference field--label-hidden field__item">       <a href="https://opensource.com/article/19/11/how-sort-awk" hreflang="und"><img loading="lazy" src="./regex in awk_files/metrics_lead-steps-measure.png" width="360" height="202" alt="Green graph of measurements" title="Green graph of measurements" class="image-style-article-teaser">
+
+</a>
+   </div>
+      </figure>
+  <div class="teaser__content">
+    
+          <h2>
+        <a href="https://opensource.com/article/19/11/how-sort-awk" rel="bookmark"><span class="field field--name-title field--type-string field--label-hidden">Awk one-liners and scripts to help you sort text files</span>
+</a>
+      </h2>
+        
+          
+            <div class="clearfix text-formatted field field--name-field-article-subhead field--type-text-long field--label-hidden field__item">  <p>Awk is a powerful tool for doing tasks that might otherwise be left to other common utilities, including sort.</p>
+
+
+</div>
+      
+              <footer>
+                <div class="teaser__author">
+          
+<div class="user__item">
+  <pfe-avatar name="Seth Kenlon" shape="circle" pattern="squares" src="/sites/default/files/pictures/seth_headshot-lawrence_0.jpg" pfelement="" class="PFElement"><template shadowrootmode="open">
+<style>:host{display:block;position:relative;width:128px;width:var(--pfe-avatar--size,var(--pfe-avatar--width,128px));height:128px;height:var(--pfe-avatar--size,var(--pfe-avatar--width,128px))}:host canvas{width:100%;height:100%;image-rendering:optimizeSpeed;image-rendering:-moz-crisp-edges;image-rendering:-webkit-optimize-contrast;image-rendering:-o-crisp-edges;image-rendering:-o-pixelated;image-rendering:pixelated;-ms-interpolation-mode:nearest-neighbor}:host([shape=rounded]) canvas,:host([shape=rounded]) img{border-radius:calc(128px / 8 + 1px);border-radius:calc(var(--pfe-avatar--size,var(--pfe-avatar--width,128px))/ 8 + 1px)}:host([shape=circle]) canvas,:host([shape=circle]) img{border-radius:50%}:host([src]) canvas{display:none}:host([src]) img{display:block;width:100%;height:100%;-o-object-fit:cover;object-fit:cover}:host(:not([src])) img{display:none}:host([hidden]){display:none} /*# sourceMappingURL=pfe-avatar.min.css.map */</style>
+<canvas width="128" height="128"></canvas>
+<img src="https://opensource.com/sites/default/files/pictures/seth_headshot-lawrence_0.jpg"></template></pfe-avatar>
+  <div class="user__name">
+            <a href="https://opensource.com/users/seth" hreflang="en">Seth Kenlon</a>
+      </div>
+  <span class="user__attributes"><span class="user-attributes">(Team, Red Hat)</span>
+</span>
+</div>
+
+        </div>
+                <span class="teaser__date">November 1, 2019</span>
+      </footer>
+      </div>
+</article>
+
+
+
+
+</div>
+              <div class="field__item"><article class="teaser">
+  <figure>
+            <div class="field field--name-field-lead-image field--type-entity-reference field--label-hidden field__item">       <a href="https://opensource.com/article/19/11/fields-records-variables-awk" hreflang="und"><img loading="lazy" src="./regex in awk_files/computer_laptop_code_programming_mountain_view.jpg" width="360" height="202" alt="Man at laptop on a mountain" title="Man at laptop on a mountain" class="image-style-article-teaser">
+
+</a>
+   </div>
+      </figure>
+  <div class="teaser__content">
+    
+          <h2>
+        <a href="https://opensource.com/article/19/11/fields-records-variables-awk" rel="bookmark"><span class="field field--name-title field--type-string field--label-hidden">Fields, records, and variables in awk</span>
+</a>
+      </h2>
+        
+          
+            <div class="clearfix text-formatted field field--name-field-article-subhead field--type-text-long field--label-hidden field__item">  <p>In the second article in this intro to awk series, learn about fields, records, and some powerful awk variables.</p>
+
+
+</div>
+      
+              <footer>
+                <div class="teaser__author">
+          
+<div class="user__item">
+  <pfe-avatar name="Seth Kenlon" shape="circle" pattern="squares" src="/sites/default/files/pictures/seth_headshot-lawrence_0.jpg" pfelement="" class="PFElement"><template shadowrootmode="open">
+<style>:host{display:block;position:relative;width:128px;width:var(--pfe-avatar--size,var(--pfe-avatar--width,128px));height:128px;height:var(--pfe-avatar--size,var(--pfe-avatar--width,128px))}:host canvas{width:100%;height:100%;image-rendering:optimizeSpeed;image-rendering:-moz-crisp-edges;image-rendering:-webkit-optimize-contrast;image-rendering:-o-crisp-edges;image-rendering:-o-pixelated;image-rendering:pixelated;-ms-interpolation-mode:nearest-neighbor}:host([shape=rounded]) canvas,:host([shape=rounded]) img{border-radius:calc(128px / 8 + 1px);border-radius:calc(var(--pfe-avatar--size,var(--pfe-avatar--width,128px))/ 8 + 1px)}:host([shape=circle]) canvas,:host([shape=circle]) img{border-radius:50%}:host([src]) canvas{display:none}:host([src]) img{display:block;width:100%;height:100%;-o-object-fit:cover;object-fit:cover}:host(:not([src])) img{display:none}:host([hidden]){display:none} /*# sourceMappingURL=pfe-avatar.min.css.map */</style>
+<canvas width="128" height="128"></canvas>
+<img src="https://opensource.com/sites/default/files/pictures/seth_headshot-lawrence_0.jpg"></template></pfe-avatar>
+  <div class="user__name">
+            <a href="https://opensource.com/users/seth" hreflang="en">Seth Kenlon</a>
+      </div>
+  <span class="user__attributes"><span class="user-attributes">(Team, Red Hat)</span>
+</span>
+</div>
+
+        </div>
+                <span class="teaser__date">November 4, 2019</span>
+      </footer>
+      </div>
+</article>
+
+
+
+
+</div>
+          </div>
+  
+  </div>
+<div class="views-element-container author-block block block-views block-views-blockauthor-info-author-info">
+  <div class="author-block__wrapper">
+  
+    
+      <div><div class="view view-author-info view-id-author_info view-display-id-author_info js-view-dom-id-991217dd127ceb11abc0e85176bc777422ed19d8ca00fe38462a058171ad9f4a">
+  
+    
+      
+      <div class="view-content">
+          <div class="views-row"><div class="views-field views-field-field-display-name"><div class="field-content"><a href="https://opensource.com/users/seth" hreflang="en">Seth Kenlon</a></div></div><div class="views-field views-field-field-user-picture"><div class="field-content"><article class="media media--type-image media--view-mode-_50x150">
+  
+      
+            <div class="field field--name-field-media-image field--type-image field--label-hidden field__item">  <img loading="lazy" src="./regex in awk_files/seth_headshot-lawrence_0.jpg" width="150" height="150" alt="Seth Kenlon" class="image-style-_50x150">
+
+
+</div>
+      
+  </article>
+</div></div><div class="views-field views-field-field-user-about"><span class="field-content">Seth Kenlon is a UNIX geek, free culture advocate, independent multimedia artist, and D&amp;D nerd. He has worked in the film and computing industry, often at the same time.</span></div><div class="views-field views-field-nothing"><span class="field-content"><a href="https://opensource.com/users/seth">More about me</a></span></div></div>
+
+    </div>
+  
+      
+          </div>
+</div>
+
+    </div>
+</div>
+
+
+<div class="views-element-container author-block block block-views block-views-blockauthor-info-block-1">
+  <div class="author-block__wrapper plain">
+  
+    
+      <div><div class="view view-author-info view-id-author_info view-display-id-block_1 js-view-dom-id-7f13ac8e02fb34652dad739aa8ba2b6149042ef9650cde1eeae47c017c4525c4">
+  
+    
+      
+  
+      
+          </div>
+</div>
+
+    </div>
+</div>
+
+
+<div class="views-element-container block block-views block-views-blockauthor-info-contributor-info">
+  
+      <h2>Contributors</h2>
+    
+      <div><div class="view view-author-info view-id-author_info view-display-id-contributor_info js-view-dom-id-c13409d341e13816575456f5ba719919a55c9fa9caf416f9a3527c25ff9a1929">
+  
+    
+      
+      <div class="view-content">
+          <div class="views-row"><div class="views-field views-field-field-user-picture"><div class="field-content"><article class="media media--type-image media--view-mode-_50x150">
+  
+      
+            <div class="field field--name-field-media-image field--type-image field--label-hidden field__item">  <img loading="lazy" src="./regex in awk_files/osdc_default_avatar_1.png" width="150" height="150" alt="Avatar" title="Avatar" class="image-style-_50x150">
+
+
+</div>
+      
+  </article>
+</div></div><div class="views-field views-field-field-display-name"><div class="field-content"><a href="https://opensource.com/users/ryoung29" hreflang="en">Robert Young</a></div></div></div>
+    <div class="views-row"><div class="views-field views-field-field-user-picture"><div class="field-content"><article class="media media--type-image media--view-mode-_50x150">
+  
+      
+            <div class="field field--name-field-media-image field--type-image field--label-hidden field__item">  <img loading="lazy" src="./regex in awk_files/id_card_2_500.png" width="150" height="150" alt="User profile image." class="image-style-_50x150">
+
+
+</div>
+      
+  </article>
+</div></div><div class="views-field views-field-field-display-name"><div class="field-content"><a href="https://opensource.com/users/dave-morriss" hreflang="en">Dave Morriss</a></div></div></div>
+
+    </div>
+  
+          </div>
+</div>
+
+  </div>
+
+<div class="block block-layout-builder block-field-blocknodearticlefield-comments">
+  
+    
+      <section id="comments" class="field field--name-field-comments field--type-comment field--label-hidden comment-wrapper">
+  
+
+  <div class="comments__count">
+          <h2>2 Comments</h2>
+        <div class="login">These comments are closed.</div>
+  </div>
+
+    
+<article data-comment-user-id="0" id="comment-187861" class="comment js-comment by-anonymous by-viewer">
+    <mark class="hidden" data-comment-timestamp="1574141165"></mark>
+
+  <footer class="comment__meta">
+    <article class="media media--type-image media--view-mode-byline">
+  
+      
+            <div class="field field--name-field-media-image field--type-image field--label-hidden field__item">  <img loading="lazy" src="./regex in awk_files/osdc_default_avatar_1(1).png" width="100" height="100" alt="Avatar" title="Avatar" class="image-style-medium">
+
+
+</div>
+      
+  </article>
+
+    <div>
+      <div class="comment__submitted">
+        TheWithz | November 19, 2019
+        <div class="rate-widget thumbsup"><form class="comment-content-187861-updown-rate-widget-0 vote-form" id="rate-widget-base-form--2" data-drupal-selector="comment-content-187861-updown-rate-widget-0" action="https://opensource.com/article/19/11/how-regular-expressions-awk" method="post" accept-charset="UTF-8">
+    <div class="rate-widget-thumbs-up">
+    <div class="thumbsup-rating-wrapper rate-disabled" can-edit="false"><div class="form-item js-form-item form-type-radio js-form-type-radio form-item-value js-form-item-value form-disabled">
+  <label class="form-item js-form-item form-type-radio js-form-type-radio form-item-value js-form-item-value form-disabled rating-label thumbsup-rating-label thumbsup-rating-label-up vote-pending rate-thumbs-up-btn-up" style="cursor: default;"><input twig-suggestion="rating-input" class="rating-input thumbsup-rating-input form-radio" data-drupal-selector="edit-value-1-2" disabled="disabled" type="radio" id="edit-value-1--2" name="value" value="1">
+</label>
+    </div>
+</div><input autocomplete="off" data-drupal-selector="form-blg9cyozb9rr4pt5evlwkvt6ipy5-j3aotvvonmzqu4" type="hidden" name="form_build_id" value="form-BLg9CYOzb9rR4Pt5EvLwkVT6IPY5-J3aOtVVONMzqu4">
+<input data-drupal-selector="edit-comment-content-187861-updown-rate-widget-0" type="hidden" name="form_id" value="comment_content_187861_updown_rate_widget_0">
+<input class="thumbsup-rating-submit button button--primary js-form-submit form-submit" data-drupal-selector="edit-submit" type="submit" id="edit-submit--4" name="op" value="Save" data-once="drupal-ajax">
+<div class="vote-result js-form-wrapper form-wrapper" data-drupal-selector="edit-result" id="edit-result--2"><div class="rate-widget-thumbs-up rate-score">
+            No readers like this yet.
+    </div>
+</div>
+
+    <div class="rate-score"></div>
+  </div>
+
+
+</form>
+</div>
+
+      </div>
+      <div class="content">
+        
+            <div class="clearfix text-formatted field field--name-comment-body field--type-text-long field--label-hidden field__item"><p>I believe your code string "adding an o inside the square brackets" is missing an "o" inside the square brackets.</p>
+</div>
+      
+      </div>
+    </div>
+        
+  </footer>
+
+</article>
+
+
+<div class="indented">  
+<article data-comment-user-id="15261" id="comment-187956" class="comment js-comment by-node-author">
+    <mark class="hidden" data-comment-timestamp="1574195202"></mark>
+
+  <footer class="comment__meta">
+    <article class="media media--type-image media--view-mode-byline">
+  
+      
+            <div class="field field--name-field-media-image field--type-image field--label-hidden field__item">  <img loading="lazy" src="./regex in awk_files/osdc_default_avatar_1(1).png" width="100" height="100" alt="Avatar" title="Avatar" class="image-style-medium">
+
+
+</div>
+      
+  </article>
+
+    <div>
+      <div class="comment__submitted">
+        <a href="https://opensource.com/users/seth">Seth Kenlon</a> | November 19, 2019
+        <div class="rate-widget thumbsup"><form class="comment-content-187956-updown-rate-widget-0 vote-form" id="rate-widget-base-form--3" data-drupal-selector="comment-content-187956-updown-rate-widget-0" action="https://opensource.com/article/19/11/how-regular-expressions-awk" method="post" accept-charset="UTF-8">
+    <div class="rate-widget-thumbs-up">
+    <div class="thumbsup-rating-wrapper rate-disabled" can-edit="false"><div class="form-item js-form-item form-type-radio js-form-type-radio form-item-value js-form-item-value form-disabled">
+  <label class="form-item js-form-item form-type-radio js-form-type-radio form-item-value js-form-item-value form-disabled rating-label thumbsup-rating-label thumbsup-rating-label-up vote-pending rate-thumbs-up-btn-up" style="cursor: default;"><input twig-suggestion="rating-input" class="rating-input thumbsup-rating-input form-radio" data-drupal-selector="edit-value-1-3" disabled="disabled" type="radio" id="edit-value-1--3" name="value" value="1">
+</label>
+    </div>
+</div><input autocomplete="off" data-drupal-selector="form-m6esapyzztvrbp0vfccbxpwwvcwkfhdvdolj-kikp6i" type="hidden" name="form_build_id" value="form-m6ESApyzZtVRbP0vfCCBxPWwvCwKfhDvdolj_kIkP6I">
+<input data-drupal-selector="edit-comment-content-187956-updown-rate-widget-0" type="hidden" name="form_id" value="comment_content_187956_updown_rate_widget_0">
+<input class="thumbsup-rating-submit button button--primary js-form-submit form-submit" data-drupal-selector="edit-submit" type="submit" id="edit-submit--6" name="op" value="Save" data-once="drupal-ajax">
+<div class="vote-result js-form-wrapper form-wrapper" data-drupal-selector="edit-result" id="edit-result--3"><div class="rate-widget-thumbs-up rate-score">
+            No readers like this yet.
+    </div>
+</div>
+
+    <div class="rate-score"></div>
+  </div>
+
+
+</form>
+</div>
+
+      </div>
+      <div class="content">
+        
+            <div class="clearfix text-formatted field field--name-comment-body field--type-text-long field--label-hidden field__item"><p>Good catch! Thanks, fixed.</p>
+</div>
+      
+      </div>
+    </div>
+              <p class="parent visually-hidden">In reply to <a href="https://opensource.com/comment/187861#comment-187861" class="permalink" rel="bookmark" hreflang="und">I believe your code string </a> by <span>TheWithz (not verified)</span></p>
+    
+  </footer>
+
+</article>
+
+</div>
+  
+</section>
+
+  </div>
+<div class="block block-layout-builder block-field-blocknodearticlefield-default-license">
+  
+    
+      
+            <div class="field field--name-field-default-license field--type-list-string field--label-hidden field__item"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" src="./regex in awk_files/cc-by-sa-4.png" title="This work is licensed under a Creative Commons Attribution-Share Alike 4.0 International License."></a>This work is licensed under a Creative Commons Attribution-Share Alike 4.0 International License.</div>
+      
+  </div>
+
+    </div>
+  </div>
+
+  </div>
+</article>
+
+
+
+
+  </div>
+
+  </div>
+
+    </div>
+  </main>
+
+      <footer class="global_footer">
+      <div class="wrapper">
+          <div class="region region-left-footer">
+    <div id="block-aboutthissitefooter" class="block block-block-content block-block-content1d00183d-1f84-4ed3-9367-c632014cd322">
+  
+      <h2>About This Site</h2>
+    
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>The opinions expressed on this website are those of each author, not of the author's employer or of Red Hat.</p>
+<p><a href="https://opensource.com/">Opensource.com</a> aspires to publish all content under a <a href="http://creativecommons.org/licenses/">Creative Commons license</a> but may not be able to do so in all cases. You are responsible for ensuring that you have the necessary permission to reuse any work on this site. Red Hat and the Red Hat logo are trademarks of Red Hat, Inc., registered in the United States and other countries.</p>
+<p>A note on advertising: Opensource.com does not sell advertising on the site or in any of its newsletters.</p>
+</div>
+      
+  </div>
+
+  </div>
+
+          <div class="region region-right-footer">
+    <div id="block-sitebranding" class="block block-system block-system-branding-block">
+  
+    
+    <div class="branding">
+          <a href="https://opensource.com/" rel="home" aria-label="" class="branding__logo">
+        <img src="./regex in awk_files/logo.svg" alt="Home">
+      </a>
+      </div>
+</div>
+
+  </div>
+
+          <div class="region region-copyright">
+    <div id="block-copyrightfooter" class="block block-block-content block-block-contentc0a744a4-2740-4f8a-a693-ee8d7cb5ff86">
+  
+    
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Copyright ©<span id="copyright-year">2024</span> Red Hat, Inc.</p>
+</div>
+      
+  </div>
+<nav role="navigation" aria-labelledby="block-legal-menu" id="block-legal" class="block block-menu navigation menu--legal">
+            
+  <h2 class="visually-hidden" id="block-legal-menu">Legal</h2>
+  
+
+        
+              <ul class="menu">
+                    <li class="menu-item">
+        <a href="https://opensource.com/privacy-policy" data-drupal-link-system-path="node/17705">Privacy Policy</a>
+              </li>
+                <li class="menu-item">
+        <a href="https://opensource.com/legal" data-drupal-link-system-path="legal">Terms of use</a>
+              </li>
+                <li class="menu-item">
+        <span id="teconsent" consent="undefined"><script src="./regex in awk_files/v1.7-3185" async="async" crossorigin="" importance="high"></script><a role="link" id="icon-id0013910628204611086" tabindex="0" lang="en" aria-haspopup="dialog" aria-label="Cookie Preferences, opens a dedicated popup modal window" class="truste_cursor_pointer">Cookie preferences</a></span>
+              </li>
+        </ul>
+  
+
+
+  </nav>
+
+  </div>
+
+      </div>
+      <div id="consent_blackbar"><style>    @font-face{      font-family:"RedHatDisplayBold";      src: url(https://consent.trustarc.com/get?name=RedHatDisplay-Bold.ttf) format("truetype");}  @font-face{      font-family:"RedHatDisplayMedium";      src: url(https://consent.trustarc.com/get?name=RedHatDisplay-Medium.ttf) format("truetype");}  @font-face{      font-family:"RedHatTextRegular";      src: url(https://consent.trustarc.com/get?name=RedHatText-Regular.ttf) format("truetype");}        #truste-consent-track{        background-color: #FFF;        max-width: 412px;        border-top: 2px solid #2B9AF3;        box-shadow: 0px 5px 15px rgb(0 0 0 / 20%);        position: fixed;        bottom: 32px;        left: 32px;        right: 32px;        z-index: 99999;      }        .truste-banner {         margin: 0 auto;          padding: 16px;      }            .truste-messageColumn {          font-family: RedHatTextRegular;          font-size: 14px;          color: #000;          margin: 0;           line-height: 21px;          padding: 0 0 0 32px;          position: relative;      }        .truste-buttonsColumn {         position: absolute;         right: 16px;         top: 11px;      }       .hidedesktop {            display: none;        font-family:  RedHatTextRegular;        font-size: 14px;        cursor: pointer;        color: #00559c;          text-decoration:none;      }      .truste-cookie-link {        font-family:  RedHatTextRegular;         cursor: pointer;        color: #0066CC;          text-decoration: none;     }      .truste-cookie-link:hover {      color: #004080;      text-decoration: underline;  }    .truste-url-banner-link {        font-family:  RedHatTextRegular;         cursor: pointer;        color: #0066CC;          text-decoration: none;     }      .truste-url-banner-link:hover {      color: #004080;      text-decoration: underline;  }    .truste-messageColumn a:visited {      color: purple;  }      .truste-info-icon {      width: 18px;      position: absolute;      left: 0;      top: 1px;  }      h2.truste-title {      color: #002952;      font-family: RedHatDisplayMedium;      display: block;      padding-bottom: 8px;      font-weight: 600;      font-size:14px;  }    img.truste-info-icon {      filter: invert(44%) sepia(82%) saturate(679%) hue-rotate(171deg) brightness(104%) contrast(91%);  }    button#truste-consent-button {      background: none;      border: none;      cursor: pointer;      padding: 8px;      margin: 0;  }    button#truste-consent-button img {      filter: invert(45%) sepia(8%) saturate(284%) hue-rotate(173deg) brightness(92%) contrast(89%);      width: 10px;  }              /* MEDIA QUERIES */        @media screen and (max-width: 768px){        #truste-consent-track{          max-width: 314px;          left: 24px;          right: 24px;          bottom: 24px;        }      }        @media screen and (max-width: 404px){        #truste-consent-track{          max-width: 100%;        }      }          @media screen and (max-width: 420px) {              .hidedesktop {                display: inline;            font-size: 14px;            cursor: pointer;            color: #00559c;              text-decoration:none;          }     }          @media screen and (min-width: 421px) and (max-width: 856px) {          .hidedesktop {                display: inline;            font-size: 14px;            cursor: pointer;            color: #00559c;              text-decoration:none;          }            }        </style>      <div id="truste-consent-track" style="display: block; opacity: 1;">      <div id="truste-consent-content" class="truste-banner" style="overflow: hidden; max-width: 1200px; max-height:auto;">            <div id="truste-consent-text" class="truste-messageColumn"><img class="truste-info-icon" alt="" src="./regex in awk_files/get"><h2 class="truste-title">How we use cookies</h2>We use cookies on our websites to deliver our online services. Details about how we use cookies and how you may disable them are set out in our&nbsp;<a href="http://www.redhat.com/en/about/privacy-policy#cookies" target="_blank" class="truste-cookie-link">Privacy Statement</a>. By using this website you agree to our use of cookies.</div>          <div id="truste-consent-buttons" class="truste-buttonsColumn">            <button id="truste-consent-button" type="button" class="truste-button1"><img alt="Close" src="./regex in awk_files/get(1)"></button>          </div>          </div>        </div></div>
+
+    </footer>
+    </div>
+  </div>
+
+    <cpx-reporter event="User Detected" auto="" evt="eddl-user-detected"><script type="data">{"loggedIn":false}</script>
+</cpx-reporter>
+<cpx-reporter auto="" event="Page Load Completed" evt="eddl-page-load-completed"></cpx-reporter>
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/56821","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"ajaxPageState":{"libraries":"classy\/base,classy\/indented,classy\/messages,classy\/node,codesnippet\/codesnippet.highlightjs,comment\/drupal.comment-by-viewer,core\/internal.jquery.form,core\/normalize,datalayer_metatag\/cpx_reporter_component,layout_discovery\/onecol,osdc\/article-teaser,osdc\/author-block,osdc\/author-meta,osdc\/comments,osdc\/global,osdc\/poll,osdc\/search,poll\/drupal.poll-links,rate\/unvote-helper,rate\/w-thumbsup,rhcomdev_analytics\/dpal-ccm,rhcomdev_data_layer\/content-item-clicked,system\/base,views\/views.module","theme":"osdc","theme_token":null},"ajaxTrustedUrl":{"form_action_p_pvdeGsVG5zNF_XLGPTvYSKCf43t8qZYSwcfZl2uzM":true,"\/article\/19\/11\/how-regular-expressions-awk?ajax_form=1":true,"\/site-search":true},"ajax":{"edit-submit--6":{"callback":"::ajaxSubmit","event":"click","wrapper":"rate-widget-base-form--3","progress":{"type":null},"url":"\/article\/19\/11\/how-regular-expressions-awk?ajax_form=1","httpMethod":"POST","dialogType":"ajax","submit":{"_triggering_element_name":"op","_triggering_element_value":"Save"}},"edit-submit--4":{"callback":"::ajaxSubmit","event":"click","wrapper":"rate-widget-base-form--2","progress":{"type":null},"url":"\/article\/19\/11\/how-regular-expressions-awk?ajax_form=1","httpMethod":"POST","dialogType":"ajax","submit":{"_triggering_element_name":"op","_triggering_element_value":"Save"}},"edit-submit--2":{"callback":"::ajaxSubmit","event":"click","wrapper":"rate-widget-base-form","progress":{"type":null},"url":"\/article\/19\/11\/how-regular-expressions-awk?ajax_form=1","httpMethod":"POST","dialogType":"ajax","submit":{"_triggering_element_name":"op","_triggering_element_value":"Save"}}},"user":{"uid":0,"permissionsHash":"d25247e531c0bddf8cd1abaea01f54a3cbd8ed788b427c08a4bc101790751169"}}</script>
+<script src="./regex in awk_files/js_BzbOcgKd5mmPT5csc5HYw-AHmMP5-6xRlWa1eBibKYo.js.download"></script>
+<script src="./regex in awk_files/pfe-readtime.min.js.download" type="module"></script>
+<script src="./regex in awk_files/js_SFqetwoWM46_K1F_OOTmBtXtHu98R-euilLYsuH6Sqo.js.download"></script>
+<script src="./regex in awk_files/pfe-avatar.min.js.download" type="module"></script>
+<script src="./regex in awk_files/js_ldhgOffZY2yEDOOqXIDa966gBsBTUlakJmgJD17vmAo.js.download"></script>
+<script src="./regex in awk_files/trustarc.js.download" id="trustarc"></script>
+<script src="./regex in awk_files/dpal.js.download"></script>
+
+  
+
+<div id="drupal-live-announce" class="visually-hidden" aria-live="polite" aria-busy="false"></div><script>_satellite["_runScript1"](function(event, target, Promise) {
+var dataLayerName="appEventData",reservedAttributes=["event"],internalDomains=[],downloadExtensions=["doc","docx","eps","jpg","png","svg","xls","ppt","pptx","pdf","xlsx","tab","csv","zip","txt","vsd","vxd","xml","js","css","rar","exe","wma","mov","avi","wmv","mp3","wav","m4v"],parseAttributes=function(e){var t={};for(var n in e.dataset)if("analytics"===n.substr(0,9)){var a=n.replace("analytics","");t[a[0]?a[0].toLocaleLowerCase()+a.slice(1):""]=e.dataset[n]}return t},addAttributes=function(e,t){return isJavascript(e)&&(t.isJavascript=!0),isDownload(e)&&(t.isDownload=!0),isCrossPropertyDomain(e)&&(t.isCrossPropertyDomain=!0,t.linkTypeName="cross property link"),isCta(e)&&(t.isCta=!0,t.linkTypeName="cta link"),isFooter(e)&&(t.isFooter=!0),isInternalCampaign(e)&&(t.isInternalCampaign=!0),isPromoSection(e)&&(t.isPromoSection=!0),isSearchContainer(e)&&(t.isSearchContainer=!0,t.linkTypeName="search result click"),t.targetHost=getHostName(e.href),t.internalCampaign=window._sdi.util.getQueryParam("icid",e.href)||window._sdi.util.getQueryParam("intcmp",e.href),t},getLinkText=function(e){return e.getAttribute("data-analytics-text")||e.getAttribute("sObjectId")||e.getAttribute("s-object-id")||e.getAttribute("sObjectID")||e.getAttribute("data-s-object-id")||e.innerText&&""!==e.innerText.trim()&&e.innerText.trim()||e.textContent&&""!==e.textContent.trim()&&e.textContent.trim()||e.querySelector("[alt]")&&e.querySelector("[alt]").getAttribute("alt")||e.querySelector("[title]")&&e.querySelector("[title]").getAttribute("title")||e.getAttribute("aria-label")||e.href||"unknown"},getRegions=function(e,t){if(t=t||[],!e)return t;var n=e.closest("[data-analytics-region]");return n?(t.push(n.dataset.analyticsRegion),t=getRegions(n.parentElement,t)):t},removeReservedAttributes=function(e){return reservedAttributes.forEach((function(t){delete e[t]})),e},buildDataObject=function(e,t,n){return n=n||getRegions(e),{event:buildEventName(e,t,n),linkInfo:Object.assign({href:e.href,regions:n.reverse().join("|"),text:getLinkText(e)},removeReservedAttributes(t))}},buildEventName=function(e,t,n){if(t.event)return t.event;var a={};if(n=n||getRegions(e))for(var i=0;i<n.length;i++)if(a[n[i]])return a[n[i]];return"Master Link Clicked"},findRootElement=function(e){if(e)return e.closest("a, [data-analytics-event]")},isJavascript=function(e){return new RegExp("^javascript:","i").test(e.href)},isDownload=function(e){return new RegExp(".("+downloadExtensions.join("|")+")$","i").test(e.href)},isInternalDomain=function(e){return new RegExp(internalDomains.join("|"),"i").test(e.href)},isExitLink=function(e){return!new RegExp(_satellite.getVar("exitExclusionArray").join("|"),"i").test(e.href)},isCrossPropertyDomain=function(e){return document.location.hostname!==getHostName(e.href)&&"access.cdn.redhat.com"!==getHostName(e.href)&&new RegExp(_satellite.getVar("redHatDomains").join("|"),"i").test(getHostName(e.href))},isCta=function(e){var t=["pfe-cta","pfe-cta a",".cta-primary",".account-register-link","a.rh-cta-link","p.cta-group a","[data-ux-cta-type*='video-play']","div.ux-cta a.ux-cta-link:not([data-ux-cta-type*='video-play'])","a.rh-promo-cta-link","[data-rh-cta-type='primary']","[data-ux-cta-type='primary']"];for(i=0;i<t.length;i++)if(e.matches(t[i])||null!==e.closest(t[i]))return!0},isTab=function(e){return!!(e.classList.contains('[data-toggle="tab"]')||e.classList.contains("pfe-accordion-header")||e.classList.contains('[role="tab"]')||e.classList.contains("ux-vtab-nav-link")||e.classList.contains("ux-tile-nav-link")||e.classList.contains("btn-brick")||e.classList.contains("ux-htab-nav-link")||e.classList.contains("ux-horizontal-tab-nav-link")||e.classList.contains("ux-oss-hub-filter-type-text")||e.classList.contains("ux-htabb-nav-link")||"tab"==e.getAttribute("data-toggle")||"PFE-ACCORDION-HEADER"==e.tagName||"tab"==e.getAttribute("role"))},isFooter=function(e){return el=e.closest("footer"),"undefined"!=typeof el&&null!=el},isInternalCampaign=function(e){return(""!=window._sdi.util.getQueryParam("icid",e.href)||""!=window._sdi.util.getQueryParam("intcmp",e.href))&&(linkRole=e.getAttribute("role")||"",_satellite.logger.log("isInternalCampaign: linkRole:",linkRole),"tab"!==linkRole||void 0)},isPromoSection=function(e){return el=e.closest("div.band-hero"),"undefined"!=typeof el&&null!=el},isSearchContainer=function(e){return _satellite.logger.log("isSearchContainer ran"),el=e.closest("div.cp-sidebar")||e.closest("div.cp-search-results")||e.closest(".eco-search-result"),_satellite.logger.log("isSearchContainer el",el),_satellite.logger.log("isSearchContainer return","undefined"!=typeof el&&null!=el&&document.location.href.indexOf("search")>-1),"undefined"!=typeof el&&null!=el&&document.location.href.indexOf("search")>-1},getHostName=function(e){return t=document.createElement("a"),t.href=e,t.hostname},pushEvent=function(e){window.appEventData=window.appEventData||[],console.info("Pushing to the dataLayer",e);var t=window[dataLayerName];Array.isArray(t)&&t.push(e)};window.analyticsHelper=window.analyticsHelper||{},window.analyticsHelper.parseCustomEvent=function(e,t,n){_satellite.logger.log("target:",e);var a=parseAttributes(e),i=null,r=getRegions(e);if(t)i=t.closest("[data-analytics-region]");else{var o=e.getRootNode();o&&o.host&&(i=e.getRootNode().host.closest("[data-analytics-region]"))}i&&(r=r.concat(getRegions(i))),"expand"===n&&r.includes("mega menu")&&(a.event="Mega Menu Expanded"),"expand"===n&&r.includes("site-switcher")&&(a.event="Site Switcher Expanded"),"true"!==a.istab&&"true"!==a.isTab||(a.event="Tab Link Clicked",tabHref=e.getAttribute("href")||getLinkText(e)||"",tabHref=tabHref.trim(),a.tabHref=tabHref),_satellite.logger.log("attributes",a),_satellite.logger.log("event type",n),_satellite.logger.log("regions",r),a=addAttributes(e,a);var s=buildDataObject(e,a,r);s.event&&pushEvent(s)};var nav,clickHandler=function(e){if(!(e.target&&e.target.tagName&&e.target.tagName.indexOf("-")>0)){var t=findRootElement(e.target);if(t){var n=parseAttributes(t);isTab(t)&&(n.event="Tab Link Clicked",tabHref=t.getAttribute("href")||getLinkText(t)||"",tabHref=tabHref.trim(),n.tabHref=tabHref),n=addAttributes(t,n);var a=buildDataObject(t,n);a.event&&pushEvent(a)}}};if(document.addEventListener("click",clickHandler,!0),document.addEventListener("pfe-tabs:shown-tab",(function(e){if(window.analyticsHelper&&"function"==typeof window.analyticsHelper.parseCustomEvent){var t=e.target.closest("pfe-content-set")||e.target.closest("pfe-tabs"),n=null;if(t){if("PFE-CONTENT-SET"===t.tagName){var a=e.detail.tab.querySelector("slot");if(a)(n=t.getSlot(a.getAttribute("name")))&&(n=t.getSlot(e.detail.tab.querySelector("slot").getAttribute("name"))[0])}else n=e.detail.tab;n?(n.setAttribute("data-analytics-isTab","true"),_satellite.logger.info("ClicktoEDDL:PFE:Called pfe-tabs:shown-tab:parseCustomEvent clicked"),window.analyticsHelper.parseCustomEvent(n,t,"clicked")):console.warn("Wasn't able to find the tabTextWrapper")}else console.warn("Wasn't able to find the componentParent")}})),document.addEventListener("pfe-accordion:change",(function(e){if(window.analyticsHelper&&"function"==typeof window.analyticsHelper.parseCustomEvent){var t=e.target.closest("pfe-content-set")||e.target.closest("pfe-accordion");if(e.detail.expanded){var n="PFE-ACCORDION-HEADER"===e.target.tagName?e.target:e.path[0];if(t&&"PFE-CONTENT-SET"===t.tagName){var a=n.querySelector("slot");if(a){var i=t.getSlot(a.getAttribute("name"));i&&i[0]&&(n=i[0])}}n&&n.setAttribute("data-analytics-isTab","true"),_satellite.logger.info("ClicktoEDDL:PFE:Called pfe-accordion:change:parseCustomEvent expand"),window.analyticsHelper.parseCustomEvent(n,t,"expand")}}})),document.addEventListener("pfe-shadow-dom-event",(function(e){window.analyticsHelper&&"function"==typeof window.analyticsHelper.parseCustomEvent&&(_satellite.logger.info("ClicktoEDDL:PFE:pfe-shadow-dom-event EventListener fired"),window.analyticsHelper.parseCustomEvent(e.detail.target,e.detail.parentComponent,"click"))})),document.addEventListener("pfe-navigation:expanded-item",(function(e){window.analyticsHelper&&"function"==typeof window.analyticsHelper.parseCustomEvent&&(_satellite.logger.info("ClicktoEDDL:PFE:pfe-navigation:expanded-item EventListener fired"),window.analyticsHelper.parseCustomEvent(e.detail.toggle,e.target,"expand"))})),nav=document.querySelector("pfe-navigation")){var navVersion=document.querySelector("pfe-navigation").version,versionGreater1095=!1;if(navVersion){var versionArray=navVersion.split(".");(parseInt(versionArray[0])>1||parseInt(versionArray[1])>0||parseInt(versionArray[2])>95)&&(versionGreater1095=!0)}}if(nav&&!versionGreater1095&&((nav=document.querySelector("pfe-navigation"))&&nav.shadowRoot&&"function"==typeof nav.shadowRoot.querySelectorAll)){function topLevelLinkClickHandler(e,t){var n=new CustomEvent("pfe-shadow-dom-event",{detail:{target:e,parent:t}});document.dispatchEvent(n)}for(var topLevelLinks=nav.shadowRoot.querySelectorAll("a.pfe-navigation__menu-link"),linkIndex=0;linkIndex<topLevelLinks.length;linkIndex++){var topLevelLink=topLevelLinks[linkIndex];topLevelLink.addEventListener("click",(function(e){topLevelLinkClickHandler(e.currentTarget,nav)}))}}document.addEventListener("keycloakRhdLogin",(function(){var e=document.querySelector("pfe-navigation");if(e&&e.shadowRoot){var t=e.shadowRoot.querySelector(".pfe-navigation__log-in-link");t&&(_satellite.logger.info("ClicktoEDDL:PFE:keycloakRhdLogin EventListener fired"),window.analyticsHelper.parseCustomEvent(t,e,"login"))}}));
+});</script><script>_satellite["_runScript2"](function(event, target, Promise) {
+if(void 0!==_sdi.util){var pageHeight=document.body.scrollHeight,viewportHeight=window.innerHeight,initialPercent=viewportHeight/pageHeight,maxInterval=0;initialPercent=initialPercent>1?100:Math.round(100*initialPercent);var maxScroll=Math.floor(initialPercent);window._sdi.util.setCookie("sat_ppv",maxScroll),window.onscroll=function(){var i=window.pageYOffset/(document.body.scrollHeight-window.innerHeight)*100;i>maxScroll&&(maxScroll=Math.floor(i)),window._sdi.util.setCookie("sat_ppv",maxScroll)}}
+});</script><script>_satellite["_runScript3"](function(event, target, Promise) {
+var userId=_satellite.cookie.get("_hjSessionUser_"+_satellite.getVar("hotjarMap"))||null;window.hj("identify",userId,{pendoID:_satellite.getVar("lightblueID"),customer:_satellite.getVar("accountID")});
+});</script><script>_satellite["_runScript4"](function(event, target, Promise) {
+void 0!==_sdi.util&&(window._sdi=window._sdi||{},window._sdi.addEventHandler=window.addEventListener?function(e,t,i){e.addEventListener(t,i,!1)}:function(e,t,i){e.attachEvent("on"+t,i)},window._sdi.addEventHandler(window,"message",(function(e){var t={},i=0;(-1!==e.origin.indexOf("loop=1")||e.srcElement&&e.srcElement.playerOptions&&1==e.srcElement.playerOptions.loop)&&(i=1);var a=0;if(e.srcElement&&e.srcElement.playerOptions&&1==e.srcElement.playerOptions.autoplay&&(a=1),e.origin.match(/youtube\.com/)&&"undefined"!=typeof JSON&&!i&&!a){t=JSON.parse(e.data);var d=window._sdi.yt.videos;if("infoDelivery"==t.event){var o,n={};for(var s in t.info.videoData&&((n=d[o=t.info.videoData.video_id]||{}).info=t.info,n.id=t.id,d[o]=n),window._sdi.yt.videos){(c=window._sdi.yt.videos[s]).id==t.id&&(n=c)}var r=window._sdi.yt.sc||{};n.info&&(Math.abs(t.info.currentTime-n.info.currentTime)>1.5&&!0===r.track&&(r.s().Media.stop(n.info.videoData.title,n.info.currentTime),"paused"!=n.state&&r.s().Media.play(n.info.videoData.title,t.info.currentTime)),n.info.currentTime=t.info.currentTime),2==t.info.playerState&&(r.s().Media.stop(n.info.videoData.title,n.info.currentTime),n.state="paused"),1==t.info.playerState&&(n.started?!0===r.track&&r.s().Media.play(n.info.videoData.title,n.info.currentTime):(n.started=!0,!0===r.track&&(r.s().Media.open(n.info.videoData.title,n.info.duration,"youtube"),r.s().Media.play(n.info.videoData.title,n.info.currentTime))),n.state="playing"),3==t.info.playerState&&n.started&&(!0===r.track&&r.s().Media.stop(n.info.videoData.title,n.info.currentTime),n.state="paused"),0===t.info.playerState&&(!0===r.track&&(r.s().Media.stop(n.info.videoData.title,n.info.currentTime),r.s().Media.close(n.info.videoData.title)),n.state="completed")}else if("onStateChange"==t.event){for(var s in window._sdi.yt.videos){var c;(c=window._sdi.yt.videos[s]).id==t.id&&(n=c)}r=window._sdi.yt.sc||{};1==t.info&&(n.started?!0===r.track&&r.s().Media.play(n.info.videoData.title,n.info.currentTime):(n.started=!0,!0===r.track&&(r.s().Media.open(n.info.videoData.title,n.info.duration,"youtube"),"paused"!=n.state&&r.s().Media.play(n.info.videoData.title,t.info.currentTime))),n.state="playing"),2==t.info&&(!0===r.track&&r.s().Media.stop(n.info.videoData.title,n.info.currentTime),n.state="paused"),3==t.info&&n.started&&(!0===r.track&&r.s().Media.stop(n.info.videoData.title,n.info.currentTime),n.state="paused"),0===t.info&&(!0===r.track&&(r.s().Media.stop(n.info.videoData.title,n.info.currentTime),r.s().Media.close(n.info.videoData.title)),n.state="completed")}}})),window._sdi.loadScript=function(e,t){var i=document.createElement("script");i.type="text/javascript",t&&"function"==typeof t&&(i.readyState?i.onreadystatechange=function(){"loaded"!==i.readyState&&"complete"!==i.readyState||(i.onreadystatechange=null,t())}:i.onload=function(){t()}),i.src=e,document.getElementsByTagName("head")[0].appendChild(i)},window._sdi.yt={stages:{},players:{},sc:{track:!0,s:function(){return s_gi(_satellite.getVar("rsid"))}},init:function(){for(var e=document.getElementsByTagName("script"),t=!1,i=(window._sdi.yt.videos,0);i<e.length;i++){(e[i].src||"").match(/youtube\.com\/iframe_api/)&&(t=!0)}!1===t?window._sdi.loadScript("//www.youtube.com/iframe_api",(function(){window._sdi.yt.ready("api")})):window._sdi.yt.ready("api")},ready:function(e){window._sdi.yt.stages[e]=!0,window._sdi.yt.stages.dom&&window._sdi.yt.stages.api&&window._sdi.yt.checkIframes()},checkIframes:function(){var e=window._sdi.yt.videos,t=1e3,i=0;document.querySelectorAll('iframe[src*="youtube"]').forEach((function(a){if("true"!=a.dataset.sdiyt){if(-1!=a.src.indexOf("loop=1"))var d=null;else{var o;d=a.src.match(/h?t?t?p?s?\:?\/\/www\.youtube(-nocookie)?\.com\/embed\/([\w-]{11})(?:\?.*)?/)}if(d){o=d.length>2?d[2]:"",a.id||(a.id=o+i,i++);var n=!1;if(!a.src.match(/origin/)&&document.location.protocol,a.src.match(/enablejsapi=1/)||(a.src+=(a.src.indexOf("?")>-1?"&":"?")+"enablejsapi=1",n=!0),void 0!==_sdi.util&&n){var s=this.cloneNode(!0);s.src=a.src,s.id=a.id,this.replaceWith(s)}else"undefined"!=typeof YT&&void 0!==YT.get?(ready=!0,e[o]={},!YT.get(a.id)||void 0===YT.get(a.id).v&&void 0!==YT.get(a.id).v.videoId?(e[o].player=new YT.Player(a.id,{events:{onReady:function(){},onStateChange:function(){},videoId:a.id}}),"true"!==a.getAttribute("data-sdiyt")&&a.setAttribute("data-sdiyt","true")):"true"!==a.getAttribute("data-sdiyt")&&a.setAttribute("data-sdiyt","true")):t=100}}})),setTimeout((function(){window._sdi.yt.checkIframes()}),t)},videos:{}},void 0!==window._sdi&&void 0!==window._sdi.addEventHandler&&window._sdi.addEventHandler(window,"load",(function(){document.querySelectorAll('iframe[src*="youtube"]').length>=1?(window._sdi.yt.init(),window._sdi.yt.ready("dom")):window._sdi.ytinterval=setInterval((function(){document.querySelectorAll('iframe[src*="youtube"]').length>=1&&(window._sdi.yt.init(),window._sdi.yt.ready("dom"),clearInterval(window._sdi.ytinterval))}),500)})));
+});</script><script>_satellite["_runScript5"](function(event, target, Promise) {
+window._sdi=window._sdi||{},window._sdi.dtm=window._sdi.dtm||{},window._sdi.dtm.video=window._sdi.dtm.video||{},_sdi.dtm.video.wistia={sc:{track:!0,s:function(){if(_sdi.util.getVar("window.s_gi")){if(void 0!==_satellite.getVar("rsid"))return s_gi(_satellite.getVar("rsid"));_satellite.logger.log("WISTIA Tracking:No RSID for s.Media: Wistia Tracking",5)}}},vids:[],timesPolled:0,pollToBind:function(){_satellite.logger.log("WISTIA Tracking: Polling for remaing video binding"),_sdi.dtm.video.wistia.timesPolled<30&&setTimeout((function(){_sdi.dtm.video.wistia.timesPolled++,_sdi.dtm.video.wistia.bindEvents()}),1e3)},bindEvents:function(){ws=_sdi.dtm.video.wistia,sc=ws.sc,s=sc.s,poll=!1,s().Media.playerName="wistia",s().Media.autoTrack=!1;for(var i=0;i<_sdi.dtm.video.wistia.vids.length;i++){var e=_sdi.dtm.video.wistia.vids[i],d=e.name(),t=e.duration();""!=d?void 0===e.adobeAnalyicsTrackingApplied?(_satellite.logger.log("WISTIA Tracking: Binding liteners to Wistia video named: "+d),void 0!==s()&&void 0!==s().Media&&(!0===sc.track&&(_satellite.logger.log("WISTIA Tracking: the video opened: "+d),s().Media.open(d,t,"wistia")),e.bind("play",(function(){void 0!==s().Media.list[this.name()]&&"object"!=typeof s().Media.list[this.name()]&&(_satellite.logger.log("WISTIA Tracking: the video opened: "+this.name()),s().Media.open(this.name(),this.duration(),"wistia")),_satellite.logger.log("WISTIA Tracking: the video played: "+this.name()),s().Media.play(this.name(),this.time())})),e.bind("pause",(function(){_satellite.logger.log("WISTIA Tracking: the video stoped: "+this.name()),s().Media.stop(this.name(),this.time())})),e.bind("seek",(function(i){_satellite.logger.log("WISTIA Tracking: the video seeked to "+i),s().Media.stop(this.name(),this.time()),s().Media.play(this.name(),i)})),e.bind("end",(function(){_satellite.logger.log("WISTIA Tracking: the video ended: "+this.name()),s().Media.stop(this.name(),this.time()),s().Media.close(this.name())})),e.adobeAnalyicsTrackingApplied=!0)):_satellite.logger.log("WISTIA Tracking: Liteners already bound to Wistia video named: "+d):poll=!0}poll&&_sdi.dtm.video.wistia.timesPolled<30&&_sdi.dtm.video.wistia.pollToBind()},findVideos:function(){_satellite.logger.log("WISTIA Tracking: Looking for videos"),window._wq=window._wq||[],_wq.push({id:"_all",onReady:function(i){_satellite.logger.log("WISTIA Tracking: Found "+i.name()+" videos"),_sdi.dtm.video.wistia.vids.push(i),_sdi.dtm.video.wistia.bindEvents()}})},init:function(){void 0!==window.Wistia?(_sdi.dtm.video.wistia.findVideos(),_sdi.dtm.video.wistia.vids.length>0&&_sdi.dtm.video.wistia.bindEvents()):_satellite.logger.log("WISTIA Tracking: No API detected")}},_sdi.dtm.video.wistia.init();
+});</script><iframe id="_hjSafeContext_17898845" title="_hjSafeContext" tabindex="-1" aria-hidden="true" src="./regex in awk_files/saved_resource.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><script>_satellite["_runScript6"](function(event, target, Promise) {
+if("yes"==_satellite.getVar("tagsAllowedFunc")&&"yes"==_satellite.getVar("rhMarketingLoaded")){var scCid=_satellite.cookie.get("rh_omni_tc");if(""!==scCid&&void 0!==scCid)for(var updatedLink="",anchors=window.document.getElementsByTagName("a"),i=0;i<anchors.length;i++)(anchors[i].href.indexOf("vts.inxpo.com")>-1||anchors[i].href.indexOf("onlinexperiences.com")>-1)&&-1==anchors[i].href.toLowerCase().indexOf("affiliatedata=")&&""!==(updatedLink=window._sdi.util.appendQuery(anchors[i].href,"AffiliateData",scCid))&&(anchors[i].href=updatedLink)}
+});</script><iframe sandbox="allow-scripts allow-same-origin" title="Adobe ID Syncing iFrame" id="destination_publishing_iframe_redhat_0" name="destination_publishing_iframe_redhat_0_name" src="./regex in awk_files/dest5.html" class="aamIframeLoaded" style="display: none; width: 0px; height: 0px;"></iframe><script>_satellite["_runScript7"](function(event, target, Promise) {
+if("yes"==_satellite.getVar("tagsAllowedFunc")&&"yes"==_satellite.getVar("rhMarketingLoaded")){var scCid=_satellite.cookie.get("rh_omni_tc");if(""!==scCid&&void 0!==scCid)for(var updatedLink="",anchors=window.document.getElementsByTagName("a"),i=0;i<anchors.length;i++)(anchors[i].href.indexOf("vts.inxpo.com")>-1||anchors[i].href.indexOf("onlinexperiences.com")>-1)&&-1==anchors[i].href.toLowerCase().indexOf("affiliatedata=")&&""!==(updatedLink=window._sdi.util.appendQuery(anchors[i].href,"AffiliateData",scCid))&&(anchors[i].href=updatedLink)}
+});</script></body></html>
