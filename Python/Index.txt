@@ -1,0 +1,3 @@
+Index
+- Python_Basic_Question_1: Anagram checking, Reading input from stdin, spliting string based on delimiter, converting strings to lowercase, looping through string characterwise
+-
