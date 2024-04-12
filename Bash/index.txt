@@ -1,0 +1,4 @@
+Index
+
+-Bash makeup: sed inside bash for regex matchnig, opening all files in a directory
+-Bash midsem: opening all files in a directory, regex comparison in bash, removing files, arithmetic
